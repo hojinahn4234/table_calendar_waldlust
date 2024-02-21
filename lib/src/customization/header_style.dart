@@ -76,6 +76,8 @@ class HeaderStyle {
   /// Determines right chevron's visibility.
   final bool rightChevronVisible;
 
+  final bool waldStyle;
+
   /// Decoration of the header.
   final BoxDecoration decoration;
 
@@ -103,6 +105,7 @@ class HeaderStyle {
     this.rightChevronIcon = const Icon(Icons.chevron_right),
     this.leftChevronVisible = true,
     this.rightChevronVisible = true,
+    this.waldStyle = true,
     this.decoration = const BoxDecoration(),
   });
 }
