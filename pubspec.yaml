@@ -1,8 +1,8 @@
-name: table_calendar
+name: table_calendar_waldlust
 description: Highly customizable, feature-packed calendar widget for Flutter.
 version: 3.1.0
-author: Aleksander Woźniak <aleksanderwozniak96@gmail.com>
-homepage: https://github.com/aleksanderwozniak/table_calendar
+author: Hojin Ahn <jinahn4234@gmail.com>
+homepage: https://github.com/hojinahn4234/table_calendar_waldlust
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
