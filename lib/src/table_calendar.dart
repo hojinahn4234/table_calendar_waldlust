@@ -204,6 +204,14 @@ class TableCalendar<T> extends StatefulWidget {
   /// Called when the calendar is created. Exposes its PageController.
   final void Function(PageController pageController)? onCalendarCreated;
 
+  final Function? copyLeftChevronTapped;
+
+  final Function? copyRightChevronTapped;
+
+  final void Function()? overrideLeftChevronTapped;
+
+  final void Function()? overrideRightChevronTapped;
+
   /// Creates a `TableCalendar` widget.
   TableCalendar({
     Key? key,
@@ -260,6 +268,10 @@ class TableCalendar<T> extends StatefulWidget {
     this.onPageChanged,
     this.onFormatChanged,
     this.onCalendarCreated,
+    this.copyLeftChevronTapped,
+    this.copyRightChevronTapped,
+    this.overrideLeftChevronTapped,
+    this.overrideRightChevronTapped,
   })  : assert(availableCalendarFormats.keys.contains(calendarFormat)),
         assert(availableCalendarFormats.length <= CalendarFormat.values.length),
         assert(weekendDays.isNotEmpty
@@ -432,17 +444,36 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   }
 
   void _onLeftChevronTap() {
-    _pageController.previousPage(
-      duration: widget.pageAnimationDuration,
-      curve: widget.pageAnimationCurve,
-    );
+    if (widget.copyLeftChevronTapped != null) {
+      widget.copyLeftChevronTapped!(() {
+        _pageController.previousPage(
+          duration: widget.pageAnimationDuration,
+          curve: widget.pageAnimationCurve,
+        );
+      });
+      return;
+    } else {
+      _pageController.previousPage(
+        duration: widget.pageAnimationDuration,
+        curve: widget.pageAnimationCurve,
+      );
+    }
   }
 
   void _onRightChevronTap() {
-    _pageController.nextPage(
-      duration: widget.pageAnimationDuration,
-      curve: widget.pageAnimationCurve,
-    );
+    if (widget.copyRightChevronTapped != null) {
+      widget.copyRightChevronTapped!(() {
+        _pageController.nextPage(
+          duration: widget.pageAnimationDuration,
+          curve: widget.pageAnimationCurve,
+        );
+      });
+    } else {
+      _pageController.nextPage(
+        duration: widget.pageAnimationDuration,
+        curve: widget.pageAnimationCurve,
+      );
+    }
   }
 
   @override
@@ -456,8 +487,12 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               return CalendarHeader(
                 headerTitleBuilder: widget.calendarBuilders.headerTitleBuilder,
                 focusedMonth: value,
-                onLeftChevronTap: _onLeftChevronTap,
-                onRightChevronTap: _onRightChevronTap,
+                onLeftChevronTap: widget.overrideLeftChevronTapped != null
+                    ? widget.overrideLeftChevronTapped!
+                    : _onLeftChevronTap,
+                onRightChevronTap: widget.overrideRightChevronTapped != null
+                    ? widget.overrideRightChevronTapped!
+                    : _onRightChevronTap,
                 onHeaderTap: () => widget.onHeaderTapped?.call(value),
                 onHeaderLongPress: () =>
                     widget.onHeaderLongPressed?.call(value),

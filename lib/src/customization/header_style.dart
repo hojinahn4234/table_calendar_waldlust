@@ -78,6 +78,8 @@ class HeaderStyle {
 
   final bool waldStyle;
 
+  final bool waldSalesCalendar;
+
   /// Decoration of the header.
   final BoxDecoration decoration;
 
@@ -106,6 +108,7 @@ class HeaderStyle {
     this.leftChevronVisible = true,
     this.rightChevronVisible = true,
     this.waldStyle = true,
+    this.waldSalesCalendar = false,
     this.decoration = const BoxDecoration(),
   });
 }

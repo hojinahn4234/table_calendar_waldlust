@@ -3,6 +3,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/src/widgets/custom_wald_icon_button.dart';
 
 import '../customization/header_style.dart';
 import '../shared/utils.dart' show CalendarFormat, DayBuilder;
@@ -41,7 +42,60 @@ class CalendarHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = headerStyle.titleTextFormatter?.call(focusedMonth, locale) ??
         DateFormat.yMMMM(locale).format(focusedMonth);
-    if (headerStyle.waldStyle) {
+    if (headerStyle.waldSalesCalendar) {
+      return Container(
+        decoration: headerStyle.decoration,
+        margin: headerStyle.headerMargin,
+        padding: headerStyle.headerPadding,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: headerTitleBuilder?.call(context, focusedMonth) ??
+                  GestureDetector(
+                    onTap: onHeaderTap,
+                    onLongPress: onHeaderLongPress,
+                    child: Text(
+                      text,
+                      style: headerStyle.titleTextStyle,
+                      textAlign: headerStyle.titleCentered
+                          ? TextAlign.center
+                          : TextAlign.start,
+                    ),
+                  ),
+            ),
+            if (headerStyle.formatButtonVisible &&
+                availableCalendarFormats.length > 1)
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: FormatButton(
+                  onTap: onFormatButtonTap,
+                  availableCalendarFormats: availableCalendarFormats,
+                  calendarFormat: calendarFormat,
+                  decoration: headerStyle.formatButtonDecoration,
+                  padding: headerStyle.formatButtonPadding,
+                  textStyle: headerStyle.formatButtonTextStyle,
+                  showsNextFormat: headerStyle.formatButtonShowsNext,
+                ),
+              ),
+            if (headerStyle.leftChevronVisible)
+              CustomWaldIconButton(
+                icon: headerStyle.leftChevronIcon,
+                onTap: () {},
+                margin: headerStyle.leftChevronMargin,
+                padding: headerStyle.leftChevronPadding,
+              ),
+            if (headerStyle.rightChevronVisible)
+              CustomWaldIconButton(
+                icon: headerStyle.rightChevronIcon,
+                onTap: () {},
+                margin: headerStyle.rightChevronMargin,
+                padding: headerStyle.rightChevronPadding,
+              ),
+          ],
+        ),
+      );
+    } else if (headerStyle.waldStyle) {
       return Container(
         decoration: headerStyle.decoration,
         margin: headerStyle.headerMargin,
