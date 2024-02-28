@@ -204,10 +204,6 @@ class TableCalendar<T> extends StatefulWidget {
   /// Called when the calendar is created. Exposes its PageController.
   final void Function(PageController pageController)? onCalendarCreated;
 
-  final Function? copyLeftChevronTapped;
-
-  final Function? copyRightChevronTapped;
-
   final void Function()? overrideLeftChevronTapped;
 
   final void Function()? overrideRightChevronTapped;
@@ -268,8 +264,6 @@ class TableCalendar<T> extends StatefulWidget {
     this.onPageChanged,
     this.onFormatChanged,
     this.onCalendarCreated,
-    this.copyLeftChevronTapped,
-    this.copyRightChevronTapped,
     this.overrideLeftChevronTapped,
     this.overrideRightChevronTapped,
   })  : assert(availableCalendarFormats.keys.contains(calendarFormat)),
@@ -444,36 +438,17 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   }
 
   void _onLeftChevronTap() {
-    if (widget.copyLeftChevronTapped != null) {
-      widget.copyLeftChevronTapped!(() {
-        _pageController.previousPage(
-          duration: widget.pageAnimationDuration,
-          curve: widget.pageAnimationCurve,
-        );
-      });
-      return;
-    } else {
-      _pageController.previousPage(
-        duration: widget.pageAnimationDuration,
-        curve: widget.pageAnimationCurve,
-      );
-    }
+    _pageController.previousPage(
+      duration: widget.pageAnimationDuration,
+      curve: widget.pageAnimationCurve,
+    );
   }
 
   void _onRightChevronTap() {
-    if (widget.copyRightChevronTapped != null) {
-      widget.copyRightChevronTapped!(() {
-        _pageController.nextPage(
-          duration: widget.pageAnimationDuration,
-          curve: widget.pageAnimationCurve,
-        );
-      });
-    } else {
-      _pageController.nextPage(
-        duration: widget.pageAnimationDuration,
-        curve: widget.pageAnimationCurve,
-      );
-    }
+    _pageController.nextPage(
+      duration: widget.pageAnimationDuration,
+      curve: widget.pageAnimationCurve,
+    );
   }
 
   @override
