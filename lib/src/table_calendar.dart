@@ -208,6 +208,10 @@ class TableCalendar<T> extends StatefulWidget {
 
   final void Function()? overrideRightChevronTapped;
 
+  final void Function()? extraLeftChevronTapped;
+
+  final void Function()? extraRightChevronTapped;
+
   /// Creates a `TableCalendar` widget.
   TableCalendar({
     Key? key,
@@ -266,6 +270,8 @@ class TableCalendar<T> extends StatefulWidget {
     this.onCalendarCreated,
     this.overrideLeftChevronTapped,
     this.overrideRightChevronTapped,
+    this.extraLeftChevronTapped,
+    this.extraRightChevronTapped,
   })  : assert(availableCalendarFormats.keys.contains(calendarFormat)),
         assert(availableCalendarFormats.length <= CalendarFormat.values.length),
         assert(weekendDays.isNotEmpty
@@ -438,6 +444,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   }
 
   void onLeftChevronTap() {
+    if (widget.extraLeftChevronTapped != null) {
+      widget.extraLeftChevronTapped!();
+    }
     _pageController.previousPage(
       duration: widget.pageAnimationDuration,
       curve: widget.pageAnimationCurve,
@@ -445,6 +454,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   }
 
   void onRightChevronTap() {
+    if (widget.extraRightChevronTapped != null) {
+      widget.extraRightChevronTapped!();
+    }
     _pageController.nextPage(
       duration: widget.pageAnimationDuration,
       curve: widget.pageAnimationCurve,
