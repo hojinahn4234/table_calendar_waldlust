@@ -102,7 +102,9 @@ class HeaderStyle {
     this.leftChevronPadding = const EdgeInsets.all(12.0),
     this.rightChevronPadding = const EdgeInsets.all(12.0),
     this.leftChevronMargin = const EdgeInsets.symmetric(horizontal: 8.0),
-    this.rightChevronMargin = const EdgeInsets.symmetric(horizontal: 8.0),
+    this.rightChevronMargin = const EdgeInsets.symmetric(
+      horizontal: 8.0,
+    ),
     this.leftChevronIcon = const Icon(Icons.chevron_left),
     this.rightChevronIcon = const Icon(Icons.chevron_right),
     this.leftChevronVisible = true,
