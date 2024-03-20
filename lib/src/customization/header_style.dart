@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../shared/utils.dart' show TextFormatter;
 
+class fake1 {}
+
 /// Class containing styling and configuration of `TableCalendar`'s header.
 class HeaderStyle {
   /// Responsible for making title Text centered.
